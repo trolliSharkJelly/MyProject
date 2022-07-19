@@ -1,21 +1,71 @@
+import { useState, useRef } from "react";
 import styled from "styled-components";
 import SubmitButton from "../component/SubmitButton";
-import { useCallback } from "react";
 
 const Container = styled.main`
-  background-color: #e7f6f2;
-  height: 100vh;
+  /* background-color: #e7f6f2; */
+  width: 500px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 10px;
 
-  .container {
-    border: 1px solid black;
+  input {
+    background-color: transparent;
+    height: 2rem;
+    font-size: 1.5em;
+    border: none;
+    border-bottom: 2px solid gray;
+  }
+
+  input:focus {
+    border: none;
+    color: blue;
   }
 
   .inputContainer {
     padding: 10px;
   }
 
-  .textContainer {
-    background-color: white;
+  .contentContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .content_child > input {
+    margin: 4px;
+  }
+
+  .contentContainer,
+  .imgContainer,
+  .buttonContainer {
+    margin-top: 6%;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .title {
+    width: 100%;
+  }
+
+  select {
+    height: 2rem;
+    font-size: 1.5rem;
+    margin-right: 10px;
+  }
+
+  button {
+    width: 100px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2rem;
+  }
+
+  .btn_submit {
+    background-color: #377d71;
   }
 `;
 
@@ -24,36 +74,82 @@ const AddLists = ({
   handleTime,
   handleDistance,
   handleNumber,
+  handleImg,
   addList,
 }) => {
   return (
     <Container>
-      <h1>AddList 페이지입니다</h1>
-
       <div className="inputContainer container">
         <div className="textContainer container">
-          제목
-          <input type="text" onChange={handleTitle} />
+          장소
+          <div>
+            <input
+              className="title"
+              type="text"
+              placeholder="장소 추가"
+              onChange={handleTitle}
+            />
+          </div>
         </div>
 
         <div className="contentContainer container">
-          시간
-          <input type="text" onChange={handleTime} />
-          총 길이
-          <input type="text" onChange={handleDistance} />
-          인원
-          <input type="text" onChange={handleNumber} />
+          <div className="content_child">
+            <div>시간</div>
+            <select onChange={handleTime}>
+              <option disabled selected>
+                시간 선택
+              </option>
+              <option value="0.5">0.5</option>
+              <option value="1">1</option>
+              <option value="1.5">1.5</option>
+              <option value="2">2</option>
+              <option value="2.5">2.5</option>
+              <option value="3">3</option>
+            </select>
+            {/* <input type="text" onChange={handleTime} /> */}
+          </div>
+
+          <div className="content_child">
+            <div>총 거리</div>
+            <select onChange={handleDistance}>
+              <option disabled selected>
+                거리 선택
+              </option>
+              <option value="0.5">0.5</option>
+              <option value="1">1</option>
+              <option value="1.5">1.5</option>
+              <option value="2">2</option>
+              <option value="2.5">2.5</option>
+              <option value="3">3</option>
+            </select>
+            {/* <input type="text" onChange={handleDistance} /> */}
+          </div>
+
+          <div className="content_child">
+            <div>인원</div>
+            <select onChange={handleNumber}>
+              <option disabled selected>
+                인원 선택
+              </option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            {/* <input type="text" onChange={handleNumber} /> */}
+          </div>
         </div>
 
         <div className="imgContainer container">
-          이미지
-          <input type="img" />
+          <div>사진</div>
+          <input type="file" onChange={handleImg} />
         </div>
       </div>
 
       {/* 버튼 영역 */}
       <div className="buttonContainer">
-        <SubmitButton addList={addList} />
+        <SubmitButton className="btn_submit" addList={addList} />
+        <button>뒤로 가기</button>
       </div>
     </Container>
   );
