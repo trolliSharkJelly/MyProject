@@ -21,6 +21,8 @@ function App() {
   const [time, setTime] = useState("");
   const [distance, setDistance] = useState("");
   const [number, setNumber] = useState(0);
+  const [imgBase64, setImgBase64] = useState("");
+  const [imgFile, setImgFile] = useState("");
 
   // 😈 Event 😈
   // (Event 1) open <AddList/>
@@ -46,7 +48,24 @@ function App() {
     setNumber(event.target.value);
   };
 
-  // (Event 4) mount
+  // (Event 4) Img State in <AddList />
+  const handleImg = (event) => {
+    console.log("이벤트가 실행되긴함?");
+    let reader = new FileReader();
+
+    reader.onloadend = () => {
+      const base64 = reader.result;
+      console.log("imgBase64 : ", base64.toString());
+      if (base64) setImgBase64(base64.toString());
+    };
+
+    if (event.target.files[0]) {
+      reader.readAsDataURL(event.target.files[0]);
+      setImgFile(event.target.files[0]);
+    }
+  };
+
+  // (Event 5) mount
   useEffect(() => {
     console.log("마운트실행");
     const localList = localStorage.getItem("List");
@@ -55,14 +74,14 @@ function App() {
     }
   }, []);
 
-  // (Event 5-1) save List in LocalStorage
+  // (Event 6-1) save List in LocalStorage
   const addList = () => {
-    let obj = { title, time, distance, number };
+    let obj = { title, time, distance, number, imgBase64 };
     setList((prev) => [...prev, obj]);
     setOpenModal(!openModal);
   };
 
-  // (Event 5-2) save List in LocalStorage
+  // (Event 6-2) save List in LocalStorage
   useEffect(() => {
     localStorage.setItem("List", JSON.stringify(list));
   }, [list]);
@@ -80,6 +99,7 @@ function App() {
           handleTime={handleTime}
           handleDistance={handleDistance}
           handleNumber={handleNumber}
+          handleImg={handleImg}
           addList={addList}
         />
       ) : (
