@@ -10,9 +10,14 @@ const Container = styled.div`
 
   .imgContainer {
     width: 100%;
-    height: 200px;
+    height: 202px;
     border: 1px solid black;
     border-radius: 5px;
+  }
+
+  img {
+    width: 100%;
+    height: 202px;
   }
 
   .title {
@@ -58,6 +63,11 @@ const Container = styled.div`
   .button_register:active {
     box-shadow: 1px 1px 5px gray;
   }
+
+  .button_register:hover {
+    background-color: #377d71;
+    color: white;
+  }
 `;
 
 const List = ({ el }) => {
@@ -65,7 +75,7 @@ const List = ({ el }) => {
     <Container>
       {/* 이미지 컨테이너 */}
       <div className="imgContainer">
-        <img />
+        <img src={el.imgBase64} />
       </div>
 
       {/* 제목 컨테이너 */}
@@ -76,11 +86,11 @@ const List = ({ el }) => {
       {/* 관련 정보 컨테이너 */}
       <div className="infoContainer">
         <span className="info_time info">
-          <strong>소요시간 </strong> {el.time}
+          <strong>소요시간 </strong> {el.time}h
         </span>
 
         <span className="info_distance info">
-          <strong>총 길이 </strong> {el.distance} km
+          <strong>총 거리 </strong> {el.distance} km
         </span>
 
         <span className="info_number info">
