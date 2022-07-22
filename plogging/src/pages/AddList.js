@@ -1,7 +1,6 @@
-import { useState, useRef } from "react";
 import styled from "styled-components";
 import SubmitButton from "../component/SubmitButton";
-
+import { time, distance, number } from "../data/AddListData";
 const Container = styled.main`
   /* background-color: #e7f6f2; */
   width: 500px;
@@ -99,44 +98,42 @@ const AddLists = ({
               <option disabled selected>
                 시간 선택
               </option>
-              <option value="0.5">0.5</option>
-              <option value="1">1</option>
-              <option value="1.5">1.5</option>
-              <option value="2">2</option>
-              <option value="2.5">2.5</option>
-              <option value="3">3</option>
+              {time.map((value, idx) => (
+                <option key={idx} value={value}>
+                  {value}
+                </option>
+              ))}
             </select>
-            {/* <input type="text" onChange={handleTime} /> */}
           </div>
 
           <div className="content_child">
-            <div>총 거리</div>
+            <div>총 거리(km)</div>
             <select onChange={handleDistance}>
               <option disabled selected>
                 거리 선택
               </option>
-              <option value="0.5">0.5</option>
-              <option value="1">1</option>
-              <option value="1.5">1.5</option>
-              <option value="2">2</option>
-              <option value="2.5">2.5</option>
-              <option value="3">3</option>
+
+              {distance.map((value, idx) => (
+                <option key={idx} value={value}>
+                  {value}
+                </option>
+              ))}
             </select>
-            {/* <input type="text" onChange={handleDistance} /> */}
           </div>
 
           <div className="content_child">
-            <div>인원</div>
+            <div>인원(명)</div>
             <select onChange={handleNumber}>
               <option disabled selected>
                 인원 선택
               </option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
+
+              {number.map((value, idx) => (
+                <option key={idx} value={value}>
+                  {value}
+                </option>
+              ))}
             </select>
-            {/* <input type="text" onChange={handleNumber} /> */}
           </div>
         </div>
 
