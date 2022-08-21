@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 const TodoInsertContainer = styled.div`
@@ -15,15 +16,17 @@ const TodoInsertContainer = styled.div`
   }
 `;
 
-const TodoInsert = ({ setIsUpload }) => {
+const TodoInsert = () => {
   const [value, setValue] = useState("");
+
+  const dispatch = useDispatch();
 
   const handleInput = (event) => {
     setValue(event.target.value);
   };
 
   const addTodo = () => {
-    setIsUpload(false);
+    dispatch({ type: "uploadBefore" });
 
     fetch("http://localhost:3001/todo", {
       method: "POST",
@@ -32,7 +35,7 @@ const TodoInsert = ({ setIsUpload }) => {
     }).then((res) => {
       console.log(res.status);
       setValue("");
-      setIsUpload(true);
+      dispatch({ type: "uploadAfter" });
     });
   };
 

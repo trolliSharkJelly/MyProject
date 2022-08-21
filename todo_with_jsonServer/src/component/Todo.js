@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 const TodoContainer = styled.li`
@@ -15,9 +16,11 @@ const TodoContainer = styled.li`
   }
 `;
 
-const Todo = ({ todo, setIsUpload }) => {
+const Todo = ({ todo }) => {
   const [isModify, setIsModify] = useState(false);
   const [value, setValue] = useState("");
+
+  const dispatch = useDispatch();
 
   const handleInput = (event) => {
     setValue(event.target.value);
@@ -29,7 +32,7 @@ const Todo = ({ todo, setIsUpload }) => {
 
   const updateTodo = (event) => {
     console.log("event : ", event.target.value);
-    setIsUpload(false);
+    dispatch({ type: "uploadBefore" });
 
     fetch(`http://localhost:3001/todo/${todo.id}`, {
       method: "PUT",
@@ -37,25 +40,21 @@ const Todo = ({ todo, setIsUpload }) => {
       body: JSON.stringify({ id: todo.id, content: value }),
     }).then((res) => {
       setIsModify(false);
-      setIsUpload(true);
+      dispatch({ type: "uploadAfter" });
     });
   };
 
   const removeTodo = () => {
-    setIsUpload(false);
-    fetch(`http://localhost:3001/todo/${todo.id}`, { method: "DELETE" }).then(
-      (res) => {
-        setIsUpload(true);
-      }
-    );
+    dispatch({ type: "uploadBefore" });
+    fetch(`http://localhost:3001/todo/${todo.id}`, { method: "DELETE" }).then((res) => {
+      dispatch({ type: "uploadAfter" });
+    });
   };
 
   return (
     <TodoContainer>
       <div>
-        {isModify && (
-          <input defaultValue={todo.content} onChange={handleInput} />
-        )}
+        {isModify && <input defaultValue={todo.content} onChange={handleInput} />}
         {isModify || <div>{todo.content}</div>}
       </div>
 

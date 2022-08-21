@@ -1,9 +1,12 @@
 import Todo from "./Todo";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-const Todos = ({ isUpload, setIsUpload }) => {
+const Todos = ({ setIsUpload }) => {
   const [todos, setTodos] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const isUpload = useSelector((state) => state.isUpload);
 
   useEffect(() => {
     setIsLoading(false);
