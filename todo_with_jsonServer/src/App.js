@@ -1,7 +1,6 @@
 import Todos from "./component/Todos";
 import TodoInsert from "./component/TodoInsert";
 import styled from "styled-components";
-import { useState } from "react";
 
 const TodoContainer = styled.div`
   * {
@@ -23,13 +22,11 @@ const TodoContainer = styled.div`
 `;
 
 function App() {
-  const [isUpload, setIsUpload] = useState(false);
-
   return (
     <TodoContainer>
       <h1>Todo</h1>
-      <TodoInsert setIsUpload={setIsUpload} />
-      <Todos isUpload={isUpload} setIsUpload={setIsUpload} />
+      <TodoInsert />
+      <Todos />
     </TodoContainer>
   );
 }
