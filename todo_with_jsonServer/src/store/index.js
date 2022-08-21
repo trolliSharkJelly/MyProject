@@ -1,19 +1,21 @@
-import { createStore } from "redux";
+import { configureStore, createSlice } from "@reduxjs/toolkit";
 
-// 리듀서
-const uploadReducer = (state = { isUpload: false }, action) => {
-  if (action.type === "uploadBefore") {
-    return { isUpload: false };
-  }
-
-  if (action.type === "uploadAfter") {
-    return { isUpload: true };
-  }
-
-  return state;
-};
+const uploadSlice = createSlice({
+  name: "upload",
+  initialState: { isUpload: false },
+  reducers: {
+    uploadBefore(state) {
+      state.isUpload = false;
+    },
+    uploadAfter(state) {
+      state.isUpload = true;
+    },
+  },
+});
 
 // 스토어
-const store = createStore(uploadReducer);
+const store = configureStore({ reducer: uploadSlice.reducer });
+
+export const uploadAction = uploadSlice.actions;
 
 export default store;

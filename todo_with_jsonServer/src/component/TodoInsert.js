@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { uploadAction } from "../store";
 
 const TodoInsertContainer = styled.div`
   display: flex;
@@ -26,7 +27,7 @@ const TodoInsert = () => {
   };
 
   const addTodo = () => {
-    dispatch({ type: "uploadBefore" });
+    dispatch(uploadAction.uploadBefore());
 
     fetch("http://localhost:3001/todo", {
       method: "POST",
@@ -35,7 +36,7 @@ const TodoInsert = () => {
     }).then((res) => {
       console.log(res.status);
       setValue("");
-      dispatch({ type: "uploadAfter" });
+      dispatch(uploadAction.uploadAfter());
     });
   };
 

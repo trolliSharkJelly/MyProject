@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { uploadAction } from "../store";
 
 const TodoContainer = styled.li`
   display: flex;
@@ -32,7 +33,7 @@ const Todo = ({ todo }) => {
 
   const updateTodo = (event) => {
     console.log("event : ", event.target.value);
-    dispatch({ type: "uploadBefore" });
+    dispatch(uploadAction.uploadBefore());
 
     fetch(`http://localhost:3001/todo/${todo.id}`, {
       method: "PUT",
@@ -40,14 +41,14 @@ const Todo = ({ todo }) => {
       body: JSON.stringify({ id: todo.id, content: value }),
     }).then((res) => {
       setIsModify(false);
-      dispatch({ type: "uploadAfter" });
+      dispatch(uploadAction.uploadAfter());
     });
   };
 
   const removeTodo = () => {
-    dispatch({ type: "uploadBefore" });
+    dispatch(uploadAction.uploadBefore());
     fetch(`http://localhost:3001/todo/${todo.id}`, { method: "DELETE" }).then((res) => {
-      dispatch({ type: "uploadAfter" });
+      dispatch(uploadAction.uploadAfter());
     });
   };
 
