@@ -5,12 +5,12 @@ import {
   setNextGroup,
 } from "../slice/currentPageSlice";
 
-const PageButtons = ({ firstButton }) => {
+const PageButtons = ({ firstButton, totalPage }) => {
   const dispatch = useDispatch();
 
   return (
     <div>
-      <button>{"<<"}</button>
+      <button onClick={() => dispatch(setCurrentPage(1))}>{"<<"}</button>
       <button onClick={() => dispatch(setPrevGroup())}>{"<"}</button>
 
       {[
@@ -27,7 +27,9 @@ const PageButtons = ({ firstButton }) => {
       ]}
 
       <button onClick={() => dispatch(setNextGroup())}>{">"}</button>
-      <button>{">>"}</button>
+      <button onClick={() => dispatch(setCurrentPage(totalPage))}>
+        {">>"}
+      </button>
     </div>
   );
 };
