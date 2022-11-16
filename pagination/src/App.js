@@ -3,7 +3,8 @@ import { pageGroup } from "./data/data";
 import Item from "./components/Item";
 import PageButtons from "./components/PageButtons";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setNextGroup, setPrevGroup } from "./slice/currentPageSlice";
 
 function App() {
   let pageCount = pageGroup.length; // 화면에 표시되는 페이지 버튼 갯수
@@ -16,10 +17,20 @@ function App() {
   let startData = currentPage * pageCount - (pageCount - 1) - 1;
   let lastData = currentPage * pageCount - 1;
 
+  const dispatch = useDispatch();
+
   const [viewData, setViewData] = useState([]);
 
   useEffect(() => {
     setViewData([]);
+
+    if (data.length < startData) {
+      dispatch(setPrevGroup());
+    }
+
+    if (startData < 0) {
+      dispatch(setNextGroup());
+    }
 
     for (let i = startData; i <= lastData; i++) {
       setViewData((prev) => [...prev, data[i]]);
