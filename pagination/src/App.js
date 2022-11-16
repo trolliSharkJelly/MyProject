@@ -33,7 +33,9 @@ function App() {
     }
 
     for (let i = startData; i <= lastData; i++) {
-      setViewData((prev) => [...prev, data[i]]);
+      if (data[i]) {
+        setViewData((prev) => [...prev, data[i]]);
+      }
     }
   }, [currentPage]);
 
