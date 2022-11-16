@@ -4,6 +4,7 @@ import PageButtons from "./components/PageButtons";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setNextGroup, setPrevGroup } from "./slice/currentPageSlice";
+import styled, { createGlobalStyle } from "styled-components";
 
 function App() {
   let pageCount = 5; // 화면에 표시되는 페이지 버튼 갯수
@@ -37,19 +38,42 @@ function App() {
   }, [currentPage]);
 
   return (
-    <div>
-      <ul>
-        {/* 페이지에 보여질 데이터 */}
-        {viewData &&
-          viewData.map((value, index) => (
-            <Item key={index} data={value.title} />
-          ))}
-      </ul>
+    <>
+      <GlobalStyle />
+      <Container>
+        <ul>
+          {/* 페이지에 보여질 데이터 */}
+          {viewData &&
+            viewData.map((value, index) => (
+              <Item key={index} data={value.title} />
+            ))}
+        </ul>
 
-      {/* 페이지 이동 버튼 */}
-      <PageButtons firstButton={firstButton} totalPage={totalPage} />
-    </div>
+        {/* 페이지 이동 버튼 */}
+        <PageButtons firstButton={firstButton} totalPage={totalPage} />
+      </Container>
+    </>
   );
 }
+
+const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  ul {
+    width: 50%;
+    margin-bottom: 1rem;
+  }
+`;
 
 export default App;
