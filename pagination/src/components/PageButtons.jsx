@@ -6,9 +6,8 @@ import {
   setNextGroup,
 } from "../slice/currentPageSlice";
 
-const PageButtons = ({ firstButton, totalPage }) => {
+const PageButtons = ({ firstButton, totalPage, lastButton }) => {
   let currentPage = useSelector((state) => state.currentPage.value);
-
   const dispatch = useDispatch();
 
   return (
@@ -17,7 +16,7 @@ const PageButtons = ({ firstButton, totalPage }) => {
       <button onClick={() => dispatch(setPrevGroup())}>{"<"}</button>
 
       {[
-        Array(5)
+        Array(lastButton - firstButton + 1)
           .fill(firstButton)
           .map((value, index) => (
             <button

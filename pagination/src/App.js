@@ -24,20 +24,17 @@ function App() {
   useEffect(() => {
     setViewData([]);
 
-    if (data.length < startData) {
-      dispatch(setPrevGroup());
-    }
-
-    if (startData < 0) {
-      dispatch(setNextGroup());
-    }
+    if (data.length < startData) dispatch(setPrevGroup());
+    if (startData < 0) dispatch(setNextGroup());
 
     for (let i = startData; i <= lastData; i++) {
-      if (data[i]) {
-        setViewData((prev) => [...prev, data[i]]);
-      }
+      if (data[i]) setViewData((prev) => [...prev, data[i]]);
     }
   }, [currentPage]);
+
+  for (let i = firstButton; i <= lastButton; i++) {
+    if (!data[i * 5 - 4]) lastButton -= 1;
+  }
 
   return (
     <>
@@ -52,7 +49,11 @@ function App() {
         </ul>
 
         {/* 페이지 이동 버튼 */}
-        <PageButtons firstButton={firstButton} totalPage={totalPage} />
+        <PageButtons
+          firstButton={firstButton}
+          totalPage={totalPage}
+          lastButton={lastButton}
+        />
       </Container>
     </>
   );
