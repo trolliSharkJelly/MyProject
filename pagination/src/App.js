@@ -1,5 +1,4 @@
 import data from "./data/data.json";
-import { pageGroup } from "./data/data";
 import Item from "./components/Item";
 import PageButtons from "./components/PageButtons";
 import { useEffect, useState } from "react";
@@ -7,15 +6,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { setNextGroup, setPrevGroup } from "./slice/currentPageSlice";
 
 function App() {
-  let pageCount = pageGroup.length; // 화면에 표시되는 페이지 버튼 갯수
+  let pageCount = 5; // 화면에 표시되는 페이지 버튼 갯수
   let dataCount = 5; // 화면에 표시되는 데이터 갯수
-  let currentPage = useSelector((state) => state.currentPage.value);
+  let currentPage = useSelector((state) => state.currentPage.value); // 현재 페이지
   let totalPage = Math.ceil(data.length / dataCount); // 총 페이지 수 = 전체 데이터 갯수 / 화면에 표시되는 데이터 갯수
   let buttonGroup = Math.ceil(currentPage / pageCount); // 현재 페이지가 몇 번째 그룹에 속한지 알아야 그룹 상의 첫번째 숫자와 마지막 숫자를 구할 수 있다.
-  let lastButton = buttonGroup * pageGroup.length;
-  let firstButton = lastButton - (pageGroup.length - 1);
-  let startData = currentPage * pageCount - (pageCount - 1) - 1;
-  let lastData = currentPage * pageCount - 1;
+  let lastButton = buttonGroup * pageCount; // 버튼 그룹의 마지막 버튼 숫자
+  let firstButton = lastButton - pageCount + 1; // 버튼 그룹의 첫번째 버튼 숫자
+  let startData = currentPage * pageCount - (pageCount - 1) - 1; // 화면에 표시되는 시작 데이터
+  let lastData = currentPage * pageCount - 1; // 화면에 표시되는 끝 데이터
 
   const dispatch = useDispatch();
 
