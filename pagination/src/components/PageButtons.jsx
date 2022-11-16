@@ -1,21 +1,32 @@
 import { useDispatch } from "react-redux";
-import { setCurrentPage } from "../slice/currentPageSlice";
+import {
+  setCurrentPage,
+  setPrevGroup,
+  setNextGroup,
+} from "../slice/currentPageSlice";
 
-const PageButtons = ({ pageGroup }) => {
+const PageButtons = ({ firstButton }) => {
   const dispatch = useDispatch();
 
   return (
     <div>
       <button>{"<<"}</button>
-      <button>{"<"}</button>
+      <button onClick={() => dispatch(setPrevGroup())}>{"<"}</button>
 
-      {pageGroup.map((value, index) => (
-        <button key={index} onClick={() => dispatch(setCurrentPage(index))}>
-          {value}
-        </button>
-      ))}
+      {[
+        Array(5)
+          .fill(firstButton)
+          .map((value, index) => (
+            <button
+              key={index}
+              onClick={() => dispatch(setCurrentPage(value + index))}
+            >
+              {value + index}
+            </button>
+          )),
+      ]}
 
-      <button>{">"}</button>
+      <button onClick={() => dispatch(setNextGroup())}>{">"}</button>
       <button>{">>"}</button>
     </div>
   );

@@ -9,10 +9,17 @@ export const currentPageSlice = createSlice({
   initialState,
   reducers: {
     setCurrentPage: (state, action) => {
-      state.value = action.payload + 1;
+      state.value = action.payload;
+    },
+    setPrevGroup: (state) => {
+      state.value -= 5;
+    },
+    setNextGroup: (state) => {
+      state.value += 5;
     },
   },
 });
 
-export const { setCurrentPage } = currentPageSlice.actions;
+export const { setCurrentPage, setPrevGroup, setNextGroup } =
+  currentPageSlice.actions;
 export default currentPageSlice.reducer;

@@ -37,7 +37,7 @@ function App() {
       </ul>
 
       {/* 페이지 이동 버튼 */}
-      <PageButtons pageGroup={pageGroup} />
+      <PageButtons firstButton={firstButton} />
     </div>
   );
 }
