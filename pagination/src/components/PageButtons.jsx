@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
   setCurrentPage,
@@ -7,6 +7,8 @@ import {
 } from "../slice/currentPageSlice";
 
 const PageButtons = ({ firstButton, totalPage }) => {
+  let currentPage = useSelector((state) => state.currentPage.value);
+
   const dispatch = useDispatch();
 
   return (
@@ -20,6 +22,7 @@ const PageButtons = ({ firstButton, totalPage }) => {
           .map((value, index) => (
             <button
               key={index}
+              className={value + index == currentPage ? "btnActive" : ""}
               onClick={() => dispatch(setCurrentPage(value + index))}
             >
               {value + index}
@@ -55,6 +58,11 @@ const Container = styled.div`
   }
 
   button:hover {
+    background-color: #7595ff;
+    color: white;
+  }
+
+  .btnActive {
     background-color: #7595ff;
     color: white;
   }
