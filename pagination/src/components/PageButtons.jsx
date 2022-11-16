@@ -7,6 +7,7 @@ const PageButtons = ({ pageGroup }) => {
   return (
     <div>
       <button>{"<<"}</button>
+      <button>{"<"}</button>
 
       {pageGroup.map((value, index) => (
         <button key={index} onClick={() => dispatch(setCurrentPage(index))}>
@@ -14,6 +15,7 @@ const PageButtons = ({ pageGroup }) => {
         </button>
       ))}
 
+      <button>{">"}</button>
       <button>{">>"}</button>
     </div>
   );
